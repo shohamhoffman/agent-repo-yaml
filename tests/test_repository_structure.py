@@ -20,7 +20,7 @@ EXPECTED_ROOT_ITEMS = [
     '.git', '.github', 'README.md', 'yamls',  # Core repository structure
     'requirements.txt', 'tests', 'pytest.ini',  # Test infrastructure
     '__pycache__', '.pytest_cache',  # Python/pytest artifacts
-    '.gitignore', 'TESTING.md',  # Documentation and config
+    '.gitignore', 'TESTING.md', 'TESTS_SUMMARY.md',  # Documentation and config
     '.coverage', 'htmlcov', 'coverage.xml',  # Coverage artifacts
 ]
 
