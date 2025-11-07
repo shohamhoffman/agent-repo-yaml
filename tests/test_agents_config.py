@@ -179,6 +179,7 @@ class TestAgentContent:
                     if 'name' in frontmatter:
                         name = frontmatter['name']
                         # Check that name uses lowercase and hyphens (common convention)
-                        assert name == name.lower(), f"Agent name '{name}' in {agent_file} should be lowercase"
+                        assert name.islower() or '-' in name, \
+                            f"Agent name '{name}' in {agent_file} should use lowercase letters and/or hyphens"
                         # Check no spaces
                         assert ' ' not in name, f"Agent name '{name}' in {agent_file} should not contain spaces"

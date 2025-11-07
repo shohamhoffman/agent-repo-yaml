@@ -14,6 +14,16 @@ import pytest
 # Get the repository root directory
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Expected files and directories in repository root
+# Includes core repository files, test infrastructure, and common artifacts
+EXPECTED_ROOT_ITEMS = [
+    '.git', '.github', 'README.md', 'yamls',  # Core repository structure
+    'requirements.txt', 'tests', 'pytest.ini',  # Test infrastructure
+    '__pycache__', '.pytest_cache',  # Python/pytest artifacts
+    '.gitignore', 'TESTING.md',  # Documentation and config
+    '.coverage', 'htmlcov', 'coverage.xml',  # Coverage artifacts
+]
+
 
 class TestRepositoryStructure:
     """Test cases for repository structure and organization."""
@@ -48,7 +58,7 @@ class TestRepositoryStructure:
         try:
             with open(readme_path, 'r', encoding='utf-8') as f:
                 content = f.read()
-            assert True, "README.md should be readable with UTF-8 encoding"
+            # Successfully reading the file with UTF-8 encoding means test passes
         except UnicodeDecodeError:
             pytest.fail("README.md should use UTF-8 encoding")
     
@@ -83,7 +93,7 @@ class TestREADMEContent:
             content = f.read()
         try:
             content.decode('utf-8')
-            assert True, "README should be text, not binary"
+            # Successfully decoding means the content is valid text
         except UnicodeDecodeError:
             pytest.fail("README should contain valid text")
     
@@ -109,14 +119,15 @@ class TestDirectoryStructure:
         """Test that there are no unexpected files in the repository root."""
         # Get all items in root
         items = os.listdir(REPO_ROOT)
-        # Filter out .git and other expected items
+        # Filter out expected items
         unexpected = [
             item for item in items 
-            if item not in ['.git', '.github', 'README.md', 'yamls', 'requirements.txt', 'tests', '__pycache__', '.pytest_cache', 'pytest.ini', '.gitignore', 'TESTING.md', '.coverage', 'htmlcov', 'coverage.xml']
+            if item not in EXPECTED_ROOT_ITEMS
         ]
-        # Note: This is a loose test - adjust based on actual repository needs
-        assert len(unexpected) == 0 or all(item.startswith('.') for item in unexpected), \
-            f"Unexpected files in repository root: {unexpected}"
+        # Allow hidden files (starting with .) that aren't explicitly listed
+        unexpected_visible = [item for item in unexpected if not item.startswith('.')]
+        assert len(unexpected_visible) == 0, \
+            f"Unexpected files in repository root: {unexpected_visible}"
     
     def test_directory_permissions(self):
         """Test that directories have proper read/execute permissions."""

@@ -63,7 +63,7 @@ class TestYAMLFiles:
         try:
             with open(first_file, 'r', encoding='utf-8') as f:
                 content = f.read()
-            assert True, "File should be readable with UTF-8 encoding"
+            # Successfully reading the file with UTF-8 encoding means test passes
         except UnicodeDecodeError:
             pytest.fail("File should be readable with UTF-8 encoding")
 
