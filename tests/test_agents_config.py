@@ -178,8 +178,9 @@ class TestAgentContent:
                     frontmatter = yaml.safe_load(parts[1])
                     if 'name' in frontmatter:
                         name = frontmatter['name']
-                        # Check that name uses lowercase and hyphens (common convention)
-                        assert name.islower() or '-' in name, \
-                            f"Agent name '{name}' in {agent_file} should use lowercase letters and/or hyphens"
+                        # Check that name has no uppercase letters
+                        assert name == name.lower(), \
+                            f"Agent name '{name}' in {agent_file} should be all lowercase"
                         # Check no spaces
-                        assert ' ' not in name, f"Agent name '{name}' in {agent_file} should not contain spaces"
+                        assert ' ' not in name, \
+                            f"Agent name '{name}' in {agent_file} should not contain spaces"
