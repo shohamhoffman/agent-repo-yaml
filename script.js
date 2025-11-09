@@ -1,25 +1,33 @@
-// Dark mode toggle functionality
+// Light/Dark mode toggle functionality
 document.addEventListener('DOMContentLoaded', function() {
     const darkModeToggle = document.getElementById('darkModeToggle');
     const body = document.body;
     
-    // Check for saved dark mode preference, default to light mode
-    const darkModeEnabled = localStorage.getItem('darkMode') === 'enabled';
+    // Check for saved theme preference, default to light mode
+    const savedTheme = localStorage.getItem('theme');
     
     // Apply saved preference on load
-    if (darkModeEnabled) {
+    if (savedTheme === 'dark') {
         body.classList.add('dark-mode');
+        body.classList.remove('light-mode');
+    } else {
+        // Explicitly set light mode
+        body.classList.add('light-mode');
+        body.classList.remove('dark-mode');
     }
     
-    // Toggle dark mode on button click
+    // Toggle between light and dark modes on button click
     darkModeToggle.addEventListener('click', function() {
-        body.classList.toggle('dark-mode');
-        
-        // Save preference to localStorage
         if (body.classList.contains('dark-mode')) {
-            localStorage.setItem('darkMode', 'enabled');
+            // Switch to light mode
+            body.classList.remove('dark-mode');
+            body.classList.add('light-mode');
+            localStorage.setItem('theme', 'light');
         } else {
-            localStorage.setItem('darkMode', 'disabled');
+            // Switch to dark mode
+            body.classList.remove('light-mode');
+            body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
         }
     });
 });

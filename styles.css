@@ -1,5 +1,17 @@
 :root {
-    /* Light mode colors */
+    /* Default/fallback colors */
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --header-bg: #f8f9fa;
+    --card-bg: #f5f5f5;
+    --border-color: #e0e0e0;
+    --button-bg: #007bff;
+    --button-hover: #0056b3;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode {
+    /* Light mode colors - explicit */
     --bg-color: #ffffff;
     --text-color: #333333;
     --header-bg: #f8f9fa;
@@ -94,7 +106,8 @@ h3 {
     transform: scale(0.95);
 }
 
-body:not(.dark-mode) .moon-icon {
+body.light-mode .moon-icon,
+body:not(.dark-mode):not(.light-mode) .moon-icon {
     display: none;
 }
 
