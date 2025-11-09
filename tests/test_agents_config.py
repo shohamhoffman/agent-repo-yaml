@@ -16,6 +16,9 @@ import yaml
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AGENTS_DIR = os.path.join(REPO_ROOT, '.github', 'agents')
 
+# Minimum content length for agent descriptions
+MIN_AGENT_BODY_LENGTH = 50
+
 
 class TestAgentsDirectory:
     """Test cases for .github/agents directory structure."""
@@ -159,8 +162,8 @@ class TestAgentContent:
                 parts = content.split('---', 2)
                 if len(parts) >= 3:
                     body = parts[2].strip()
-                    # Should have at least 50 characters of meaningful content
-                    assert len(body) > 50, f"Agent file {agent_file} should have descriptive body content (at least 50 characters)"
+                    # Should have at least MIN_AGENT_BODY_LENGTH characters of meaningful content
+                    assert len(body) > MIN_AGENT_BODY_LENGTH, f"Agent file {agent_file} should have descriptive body content (at least {MIN_AGENT_BODY_LENGTH} characters)"
     
     def test_agent_name_format(self):
         """Test that agent names follow a consistent format (lowercase with hyphens)."""

@@ -47,4 +47,6 @@ jobs:
         file: ./coverage.xml
         flags: unittests
         name: codecov-umbrella
+        # Note: For private repos or enhanced security, add CODECOV_TOKEN secret
+        # token: ${{ secrets.CODECOV_TOKEN }}
       continue-on-error: true
